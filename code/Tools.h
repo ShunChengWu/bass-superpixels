@@ -62,10 +62,6 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 #include <opencv2/opencv.hpp>
-#include <boost/timer.hpp>
-#include <boost/filesystem.hpp>
-#include <boost/filesystem/fstream.hpp>
-
 #ifndef SEEDS_REVISED_TOOLS_H
 #define	SEEDS_REVISED_TOOLS_H
 
@@ -98,38 +94,6 @@ public:
      * @param int cols
      */
     static void relabel(int** labels, int rows, int cols);
-};
-
-/**
- * Class Export provides a helper to export a matrix to CSV format.
- * 
- * @author David Stutz
- */
-class Export {
-
-public:
-
-    /**
-     * Save labels to CSV file.
-     * 
-     * @param int** labels superpixel labels  (first dimension is x-axis)
-     * @param int
-     * @param int
-     * @param boost::filesystem::path path path to store CSV file
-     */
-    static void CSV(int** labels, int rows, int cols, boost::filesystem::path path);
-    
-    /**
-     * Save the given OpenCV matrix in BSD evaluation file format, as for example:
-     * 
-     *  fprintf(fid, '%10d %10g\n', ...)
-     * 
-     * @param matrix
-     * @param precision
-     * @param path
-     */
-    template <typename T>
-    static void BSDEvaluationFile(const cv::Mat &matrix, int precision, boost::filesystem::path path);
 };
 
 /**

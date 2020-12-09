@@ -1,2 +1,0 @@
-/usr/bin/ar cr libmath.a  CMakeFiles/math.dir/math_sse.cpp.o
-/usr/bin/ranlib libmath.a

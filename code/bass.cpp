@@ -2,17 +2,11 @@
 #include <opencv2/opencv.hpp>
 #include "Tools.h"
 #include <string>
-#include <eigen3/Eigen/Core> // For RMatrixXf (geodesic distance)
-#include <opencv2/core/eigen.hpp>
 #include <iostream>
 #include <stack>
 #include <ctime>
 #include <dirent.h>
-#include <cstdlib> 
-#include <unistd.h>
-#include <sstream>
-// #include "structureEdge.h" // Uncomment for edge detection
-
+#include <cstdlib>
 using namespace cv;
 using namespace std;
 
@@ -1217,6 +1211,8 @@ int main(int argc, char** argv )
         double* kseedsl;double* kseedsa;double* kseedsb;
 
         image = images[imgn];
+
+        cv::resize(image,image,Size(),0.5,0.5);
         
         if ( !image.data )
         {
@@ -1477,50 +1473,12 @@ int main(int argc, char** argv )
         Mat labelImage = Draw::labelImage(toDraw, image);
         Mat meanImage = Draw::meanImage(toDraw, image);
 
-        // string img_name_ext = argv[1];
-        string img_name_ext = fn[imgn];
-        string store;
-        const size_t pos = img_name_ext.rfind("/");
-
-        if (OUTPUT)
-        {
-            store = output_dir + "/" +  img_name_ext.substr(pos+1, img_name_ext.size() - (pos+1) - (img_name_ext.size() - img_name_ext.rfind(".")));
-        }
-        else
-        {
-            store = img_name_ext.substr(0,pos) + "/output/" +  img_name_ext.substr(pos+1, img_name_ext.size() - (pos+1) - (img_name_ext.size() - img_name_ext.rfind(".")));
-        }
-        // string store = "output/" + img_name_ext.substr(0, img_name_ext.size()-4);
- 
-        /////////////////////////////////////////////////
-        // TO SAVE WITH PERCENTAGES OF ENERGY FUNCTION://
-        /////////////////////////////////////////////////
-        
-        stringstream ss_lab;
-        ss_lab << round(pLAB);
-        string str_lab = ss_lab.str();
-
-        stringstream ss_xy;
-        ss_xy << round(pXY);
-        string str_xy = ss_xy.str();
-
-        stringstream ss_g;
-        ss_g << round(pG);
-        string str_g = ss_g.str();
-        
-        cout << "Saving in " << store << endl;
-        store_contours = store + "-lab_" + str_lab  + "xy_" + str_xy + "g_" + str_g + "_contours.png";
-        // string store_label = store + "_labels.png";
-        store_mean = store + "-lab_" + str_lab  + "xy_" + str_xy + "g_" + str_g + "_mean.png";
-        // store_mean = store + "_mean.png";
-        imwrite(store_contours, contourImage);
-        // imwrite(store_label, labelImage);
-        imwrite(store_mean, meanImage);
-
-        string csvFile = store + ".csv";
-        Export::CSV(toDraw, image.rows, image.cols, csvFile);
-
+        imshow("edgeImage",thEdges);
+        imshow("contourImage",contourImage);
+        imshow("labelImage",labelImage);
+        imshow("meanImage",meanImage);
         cout << "-----------------" << endl;
+        waitKey();
        
         //---------------------------
         // Deallocate memory

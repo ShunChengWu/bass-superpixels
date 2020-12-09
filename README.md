@@ -3,8 +3,10 @@
 This repository is forked from https://github.com/arubior/bass-superpixels. The main purpose of this repository is to make it easier to build.
 
 ## How do I get set up?
-###Dependency
+
+### Dependency
 OpenCV
+
 ### Build
 Clone the repo, go to code folder and compile as follows (you will need to remove an extra space created in link.txt):
 ```
